@@ -1,57 +1,48 @@
-# Project Name
+# Spring Boot OpenAI Bot
 
-(short, 1-3 sentenced, description of the project)
+Sample application showing how to use Spring Boot with OpenAI's GPT-3 API.
+
+This is a fully reactive application that uses Spring WebFlux and the OpenAI streaming API, 
+that can be packaged as a GraalVM native image.
 
 ## Features
 
-This project framework provides the following features:
-
-* Feature 1
-* Feature 2
-* ...
+* Spring Boot 3
+* Fully reactive with Spring WebFlux and Spring WebClient
+* OpenAI streaming API
+* Native image with GraalVM
+* Deployment to Azure Container Apps
 
 ## Getting Started
 
 ### Prerequisites
 
-(ideally very short, if any)
-
-- OS
-- Library version
-- ...
+- Java 17
+- Access to OpenAI's GPT-3 API
 
 ### Installation
 
-(ideally very short)
-
-- npm install [package name]
-- mvn install
-- ...
+```bash
+./mvnw package
+```
 
 ### Quickstart
-(Add steps to get up and running quickly)
 
-1. git clone [repository clone url]
-2. cd [repository name]
-3. ...
+You will need to set the following environment variables to access OpenAI's API:
 
+```bash
+export APPLICATION_OPENAI_KEY=<your-openai-api-key>
+export APPLICATION_OPENAI_URL=<your-openai-url>
+```
 
 ## Demo
 
-A demo app is included to show how to use the project.
-
-To run the demo, follow these steps:
-
-(Add steps to start up the demo)
-
-1.
-2.
-3.
+```bash
+./mvnw spring-boot:run
+```
 
 ## Resources
 
-(Any additional resources or related projects)
+To customize the OpenAI prompt, you can check the following resource:
 
-- Link to supporting information
-- Link to similar sample
-- ...
+- [Prompt Engineering Guide](https://github.com/dair-ai/Prompt-Engineering-Guide)
