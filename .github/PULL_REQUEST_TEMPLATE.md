@@ -27,9 +27,9 @@ What kind of change does this Pull Request introduce?
 
 ```
 git clone [repo-address]
-cd [repo-name]
+cd spring-openai-bot
 git checkout [branch-name]
-npm install
+./mvnw test
 ```
 
 * Test the code

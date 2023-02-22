@@ -1,0 +1,40 @@
+name: Build and deploy native image to Azure Containers App
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-native:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+      - name: Build Spring Boot application with GraalVM
+        run: |
+          ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=${{ secrets.REGISTRY_URL }}/com.microsoft.samples.springopenai/spring-openai-bot:${{ github.sha }}
+      - name: Log in to container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ secrets.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Docker push to container registry
+        run: |
+          docker image push ${{ secrets.REGISTRY_URL }}/com.microsoft.samples.springopenai/spring-openai-bot:${{ github.sha }}
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Deploy to Container App
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az config set extension.use_dynamic_install=yes_without_prompt
+            az containerapp update -n ${{ secrets.APP_NAME }} -g ${{ secrets.GROUP_NAME }} --image ${{ secrets.REGISTRY_URL }}/com.microsoft.samples.springopenai/spring-openai-bot:${{ github.sha }}
