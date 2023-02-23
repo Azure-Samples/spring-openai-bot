@@ -4,7 +4,7 @@ name: Deploy to Azure Container Apps
 # This GitHub Action requires the following secrets:
 # AZURE_CREDENTIALS : a JSON payload allowing access to your Azure resources
 # RESOURCE_GROUP_NAME : the name of the Azure resource group containing your Azure Container Apps instance
-# APPLICATION_NAME : the name of your Azure Container Apps instance
+# CONTAINER_NAME : the name of your Azure Container Apps instance
 # REGISTRY_URL : the URL of your container registry
 # REGISTRY_USERNAME : the username of your container registry
 # REGISTRY_PASSWORD : the password of your container registry
@@ -16,7 +16,7 @@ on:
       - main
 
 jobs:
-  build-native:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -48,4 +48,4 @@ jobs:
         with:
           inlineScript: |
             az config set extension.use_dynamic_install=yes_without_prompt
-            az containerapp update -n ${{ secrets.APPLICATION_NAME }} -g ${{ secrets.RESOURCE_GROUP_NAME }} --image ${{ secrets.REGISTRY_URL }}/com.microsoft.samples.springopenai/spring-openai-bot:${{ github.sha }}
+            az containerapp update -n ${{ secrets.CONTAINER_NAME }} -g ${{ secrets.RESOURCE_GROUP_NAME }} --image ${{ secrets.REGISTRY_URL }}/com.microsoft.samples.springopenai/spring-openai-bot:${{ github.sha }}
