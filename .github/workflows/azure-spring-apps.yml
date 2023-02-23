@@ -1,0 +1,41 @@
+name: Build and deploy native image to Azure Spring Apps
+
+####
+# This GitHub Action requires the following secrets:
+# AZURE_CREDENTIALS : a JSON payload allowing access to your Azure resources
+# RESOURCE_GROUP_NAME : the name of the Azure resource group containing your Azure Spring Apps instance
+# SPRING_CLUSTER_NAME : the name of your Azure Spring Apps cluster
+# APPLICATION_NAME : the name of your Azure Spring Apps instance
+####
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-native:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+      - name: Build Spring Boot application
+        run: |
+          ./mvnw package
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Deploy to Azure Spring Apps
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az config set extension.use_dynamic_install=yes_without_prompt
+            az extension add --source https://ascprivatecli.blob.core.windows.net/cli-extension/spring-1.1.11-py3-none-any.whl
+            az spring app deploy -n ${{ secrets.APPLICATION_NAME }} -g ${{ secrets.RESOURCE_GROUP_NAME }} -s ${{ secrets.SPRING_CLUSTER_NAME }} --artifact-path target/springopenai-*.jar --runtime-version Java_17
