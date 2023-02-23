@@ -1,4 +1,4 @@
-name: Build and deploy native image to Azure Spring Apps
+name: Deploy to Azure Spring Apps
 
 ####
 # This GitHub Action requires the following secrets:
