@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openaibot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openaibot
+  template:
+    metadata:
+      labels:
+        app: openaibot
+    spec:
+      containers:
+      - name: openaibot
+        image: $myACRName.azurecr.io/$myACRImage:v1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: APPLICATION_OPENAI_KEY
+          valueFrom: 
+            secretKeyRef:
+               name: aiconfigstring
+               key: APPLICATION_OPENAI_KEY
+        - name: APPLICATION_OPENAI_URL
+          valueFrom: 
+            secretKeyRef:
+               name: aiconfigstring
+               key: APPLICATION_OPENAI_URL
+        - name: TITLE
+          value: "Welcome to the Azure OpenAI Bot!"        
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openaibot
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+  selector:
+    app: openaibot
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: openaibot
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+  - host: $hosturl
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service: 
+            name: openaibot
+            port: 
+              number: 8080
+
