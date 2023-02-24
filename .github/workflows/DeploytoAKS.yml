@@ -1,3 +1,13 @@
+# This app runs with a key and URL for Azure OpenAI Service: https://azure.microsoft.com/en-us/products/cognitive-services/openai-service/
+# https://azure.microsoft.com/en-us/products/cognitive-services/openai-service/
+# And a service principal with access to an Azure container registry and an Azure Kubernetes service
+# Add the following values in secrets in this GitHub Repo: Settings > Secrets and Variables > Actions
+# Values: 
+# AZURE_CLIENT_ID
+# AZURE_SUBSCRIPTION_ID
+# AZURE_TENANT_ID
+# Then set up the env: section below with the values for your destination AKS/ACR instances.  
+
 name: DeploytoAKS
 "on":
     push:

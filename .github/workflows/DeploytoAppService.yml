@@ -1,5 +1,11 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
+# This app runs with a key and URL for Azure OpenAI Service: https://azure.microsoft.com/en-us/products/cognitive-services/openai-service/
+# https://azure.microsoft.com/en-us/products/cognitive-services/openai-service/
+# Add the following values in two places: 
+# 1. Action secrets in this GitHub Repo: Settings > Secrets and Variables > Actions
+# 2. Application settings of you destination App Service: Configuration > Application Settings.
+# Values: 
+# APPLICATION_OPENAI_KEY=<your-openai-api-key>
+# APPLICATION_OPENAI_URL=<your-openai-url>Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 
 name: Build and deploy JAR app to Azure Web App - 20210223openaibot
 
