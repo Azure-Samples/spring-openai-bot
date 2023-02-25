@@ -17,7 +17,7 @@
 
 # Required:
 export mylocation=<select from az account list-locations -o table>
-export rgandacrandaksname=20210223openaibot
+export rgandacrandaksname=<your-name-for-rg-and-acr-and-aks-cluster>
 export APPLICATION_OPENAI_KEY=<your-openai-api-key>
 export APPLICATION_OPENAI_URL=<your-openai-url>
 

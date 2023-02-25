@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: openaibot
-        image: 20210223openaibot.azurecr.io/20210223openaibot:v1
+        image: <registryname>/<repositoryname><repositoryimage>
         ports:
         - containerPort: 8080
         env:
@@ -51,7 +51,7 @@ metadata:
     kubernetes.io/ingress.class: addon-http-application-routing
 spec:
   rules:
-  - host: openaibot.3ccaffe3fab3432a8c7c.westus3.aksapp.io
+  - host: openaibot.<HTTPApplicationRoutingZoneName>
     http:
       paths:
       - path: /

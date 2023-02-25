@@ -8,7 +8,15 @@ name: Deploy to Azure App Service
 # 2. Application settings of you destination App Service: Configuration > Application Settings.
 # Values: 
 # APPLICATION_OPENAI_KEY=<your-openai-api-key>
-# APPLICATION_OPENAI_URL=<your-openai-url>
+# APPLICATION_OPENAI_URL=<your-openai-url>Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+#
+# App Service Destination setup:
+# Get an Azure App Service Publish Profile: https://learn.microsoft.com/en-us/visualstudio/azure/how-to-get-publish-profile-from-azure-app-service
+# Add the following values in secrets in this GitHub Repo:
+# The name of your destination App Service:
+# Values: 
+# 1. AZUREAPPSERVICE_DESTINATION=<the-app-service-for-deployment>
+# 2. AZUREAPPSERVICE_PUBLISHPROFILE=<the-app-service-publish profile>
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 ####
 
@@ -56,7 +64,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: '20210223openaibot'
+          app-name: ${{ secrets.AZUREAPPSERVICE_DESTINATION }}
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_24E9272CED624BA6AE705476003C32A1 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
           package: '*.jar'
