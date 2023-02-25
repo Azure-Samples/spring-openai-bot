@@ -75,5 +75,3 @@ az aks show --resource-group $myResourceGroup --name $myAKSCluster --query addon
 
 #Run 
 kubectl apply -f openaibot.yaml
-
-

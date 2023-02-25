@@ -1,14 +1,17 @@
+name: Deploy to Azure Kubernetes Service
+
+####
 # This app runs with a key and URL for Azure OpenAI Service: https://azure.microsoft.com/en-us/products/cognitive-services/openai-service/
 # https://azure.microsoft.com/en-us/products/cognitive-services/openai-service/
-# And a service principal with access to an Azure container registry and an Azure Kubernetes service
+# And a service principal with access to an Azure container registry and an Azure Kubernetes Service
 # Add the following values in secrets in this GitHub Repo: Settings > Secrets and Variables > Actions
 # Values: 
 # AZURE_CLIENT_ID
 # AZURE_SUBSCRIPTION_ID
 # AZURE_TENANT_ID
 # Then set up the env: section below with the values for your destination AKS/ACR instances.  
+####
 
-name: DeploytoAKS
 "on":
     push:
         branches:
@@ -30,7 +33,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-            - uses: azure/login@v1.4.3
+            - uses: azure/login@v1
               name: Azure login
               with:
                 client-id: ${{ secrets.AZURE_CLIENT_ID }}
@@ -48,7 +51,7 @@ jobs:
             - buildImage
         steps:
             - uses: actions/checkout@v3
-            - uses: azure/login@v1.4.3
+            - uses: azure/login@v1
               name: Azure login
               with:
                 client-id: ${{ secrets.AZURE_CLIENT_ID }}

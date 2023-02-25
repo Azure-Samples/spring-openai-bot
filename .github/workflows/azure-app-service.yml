@@ -1,3 +1,6 @@
+name: Deploy to Azure App Service
+
+####
 # This app runs with a key and URL for Azure OpenAI Service: https://azure.microsoft.com/en-us/products/cognitive-services/openai-service/
 # https://azure.microsoft.com/en-us/products/cognitive-services/openai-service/
 # Add the following values in two places: 
@@ -5,9 +8,9 @@
 # 2. Application settings of you destination App Service: Configuration > Application Settings.
 # Values: 
 # APPLICATION_OPENAI_KEY=<your-openai-api-key>
-# APPLICATION_OPENAI_URL=<your-openai-url>Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-
-name: Build and deploy JAR app to Azure Web App - 20210223openaibot
+# APPLICATION_OPENAI_URL=<your-openai-url>
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+####
 
 on:
   push:
@@ -20,16 +23,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up Java version
-        uses: actions/setup-java@v1
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Java
+        uses: actions/setup-java@v3
         with:
+          distribution: 'temurin'
           java-version: '17'
-
+          cache: 'maven'
       - name: Build with Maven
-        run: mvn clean install
-
+        run: ./mvn clean package
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
