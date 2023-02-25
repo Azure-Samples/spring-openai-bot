@@ -18,11 +18,11 @@ name: Deploy to Azure Kubernetes Service
             - main
     workflow_dispatch: {}
 env:
-    ACR_RESOURCE_GROUP: 20210223openaibot
-    AZURE_CONTAINER_REGISTRY: 20210223openaibot
-    CLUSTER_NAME: 20210223openaibot
-    CLUSTER_RESOURCE_GROUP: 20210223openaibot
-    CONTAINER_NAME: 20210223openaibot
+    ACR_RESOURCE_GROUP: 
+    AZURE_CONTAINER_REGISTRY: 
+    CLUSTER_NAME: 
+    CLUSTER_RESOURCE_GROUP: 
+    CONTAINER_NAME: 
     DEPLOYMENT_MANIFEST_PATH: |
         ./openaibot.yaml
 jobs:
